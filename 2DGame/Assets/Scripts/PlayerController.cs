@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LeanplumSDK;
 
 public class PlayerController : MonoBehaviour {
 
@@ -26,5 +27,6 @@ public class PlayerController : MonoBehaviour {
 		{
 			other.gameObject.SetActive (false);
 		}
+		Leanplum.ForceContentUpdate ();
 	}
 }

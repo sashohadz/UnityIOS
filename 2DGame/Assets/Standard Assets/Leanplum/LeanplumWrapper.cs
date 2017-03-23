@@ -1,4 +1,4 @@
-﻿// Copyright 2014, Leanplum, Inc.
+﻿	// Copyright 2014, Leanplum, Inc.
 
 using LeanplumSDK;
 using System.Collections;
