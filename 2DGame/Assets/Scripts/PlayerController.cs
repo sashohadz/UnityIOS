@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	private Rigidbody2D rb2d;
+	int pickupCount;
 
 	void Start()
 	{
@@ -25,8 +26,19 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("PickUp")) 
 		{
+			pickupCount++;
 			other.gameObject.SetActive (false);
+
+			if (Leanplum.HasStarted) {
+				Dictionary<string, object> attributes = new Dictionary<string, object>();
+				attributes.Add("pickUp Count", pickupCount);
+				Leanplum.SetUserAttributes (attributes);
+				Leanplum.Track ("PickUp");
+
+				string userName = "Sasho3-" + (pickupCount).ToString ();
+				Leanplum.SetUserId (userName);
+				Leanplum.ForceContentUpdate ();
+			}
 		}
-		Leanplum.ForceContentUpdate ();
 	}
 }

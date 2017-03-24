@@ -37,6 +37,7 @@ public class LeanplumWrapper : MonoBehaviour
     void Start()
     {
 		welcomeMessage = Var<string>.Define("welcomeMessage", "Welcome to Leanplum!");
+		Var<bool> testBoolVariable = Var<bool>.Define ("testBoolVariable", true);
 
         DontDestroyOnLoad(this.gameObject);
 
@@ -52,21 +53,45 @@ public class LeanplumWrapper : MonoBehaviour
                            "Development Key in the Leanplum GameObject inspector before starting.");
         }
 
-        if (Debug.isDebugBuild)
-        {
+
+		Leanplum.SetDeviceId ("23-March-D001");
+//        if (Debug.isDebugBuild)
+//        {
             Leanplum.SetAppIdForDevelopmentMode(AppID, DevelopmentKey);
-        }
-        else
-        {
-            Leanplum.SetAppIdForProductionMode(AppID, ProductionKey);
-        }
-
+//        }
+//        else
+//        {
+//            Leanplum.SetAppIdForProductionMode(AppID, ProductionKey);
+//        }
+			
+		#if UNITY_IPHONE
+		Leanplum.RegisterForIOSRemoteNotifications();
+		#elif UNITY_ANDROID
 		Leanplum.SetGcmSenderId(Leanplum.LeanplumGcmSenderId);
+		#endif
 
-        Leanplum.Start();
 
 		Leanplum.VariablesChanged += delegate {
+			Debug.Log("Variables Changed");
 			Debug.Log(welcomeMessage.Value);
+			Debug.Log(testBoolVariable.Value);
 		};
+			
+        Leanplum.Start();
     }
+
+// Auto generated userId - each time Update() is called new userId is generated.
+// Will generate a lot of new userIds in the app if the app is run for longer time.
+
+//	void Update()
+//	{
+//		if (Leanplum.HasStarted)
+//		{
+//			Debug.Log("Started Slow Stuff");
+//
+//			Leanplum.Track("Challenges");
+//			Leanplum.SetUserId(System.Guid.NewGuid().ToString());
+//			Leanplum.ForceContentUpdate();
+//		}
+//	}
 }
