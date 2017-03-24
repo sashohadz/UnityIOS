@@ -80,9 +80,12 @@ public class LeanplumWrapper : MonoBehaviour
         Leanplum.Start();
     }
 
-// Auto generated userId - each time Update() is called new userId is generated.
+// TEST CASE 01
+//
+// Call forceContent update after setUserId with auto generated userId.
+// Each time Update() is called new userId is generated.
+// WARNING:
 // Will generate a lot of new userIds in the app if the app is run for longer time.
-
 //	void Update()
 //	{
 //		if (Leanplum.HasStarted)

@@ -29,13 +29,15 @@ public class PlayerController : MonoBehaviour {
 			pickupCount++;
 			other.gameObject.SetActive (false);
 
+			// TEST CASE 02
+			// Manually generate userId on each pickUp (5 users in total).
 			if (Leanplum.HasStarted) {
 				Dictionary<string, object> attributes = new Dictionary<string, object>();
 				attributes.Add("pickUp Count", pickupCount);
 				Leanplum.SetUserAttributes (attributes);
 				Leanplum.Track ("PickUp");
 
-				string userName = "Sasho3-" + (pickupCount).ToString ();
+				string userName = "Sasho23March-" + (pickupCount).ToString ();
 				Leanplum.SetUserId (userName);
 				Leanplum.ForceContentUpdate ();
 			}
